@@ -1,8 +1,7 @@
 import asyncio
 import os
-#from config import VK_API
+from config import VK_API_TOKEN
 from vkbottle import Bot
-VK_API_TOKEN=""
 vkbot_instance = Bot(token=VK_API_TOKEN)
 
 
