@@ -1,12 +1,11 @@
-import asyncio
-import os
-from config import VK_API_TOKEN
 from vkbottle import Bot
-vkbot_instance = Bot(token=VK_API_TOKEN)
+from config import api, state_dispenser, labeler
+from handlers import chat_labeler, admin_labeler
 
 
-@vkbot_instance.on.message(text=['/start'])
-async def start_command(message):
-    await message.answer('Привет, хуесос!')
+labeler.load(chat_labeler)
+labeler.load(admin_labeler)
 
-vkbot_instance.run_forever()
+bot = Bot(api=api, labeler=labeler, state_dispenser=state_dispenser)
+
+bot.run_forever()
