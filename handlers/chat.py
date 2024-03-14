@@ -1,5 +1,5 @@
 from vkbottle.bot import BotLabeler, Message, rules
-from vkbottle_types.objects import MessagesConversation, UsersUser
+from vkbottle_types.objects import MessagesConversation
 from vkbottle_types.events import MessageTypingState
 
 
