@@ -20,9 +20,4 @@ async def kick(message: Message, chat: MessagesConversation):
 
 @chat_labeler.message(text="где я")
 async def where_am_i(message: Message, chat: MessagesConversation):
-    await message.answer(f"Вы в <<{chat.chat_settings.title}>>")
-
-@chat_labeler.raw_event(MessageTypingState)
-async def typing_state(event: MessageTypingState):
-    user: UsersUser = (await event.ctx_api.users.get(event.user_id))[0]
-    await event.ctx_api.messages.send(peer_id=event.user_id, message=f"Чё пишим?, {user.first_name} {user.last_name}", random_id=0)
+    await message.reply(f"Вы в <<{chat.chat_settings.title}>>")
