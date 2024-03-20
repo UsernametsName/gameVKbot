@@ -3,13 +3,13 @@ import logging
 from vkbottle import Bot
 from config import api, state_dispenser, labeler
 from database.models import create_tables
-from handlers import admin_labeler, kb_labeler
+from handlers import * 
 
 
 async def main() -> None:  
 
     labeler.load(admin_labeler)
-    labeler.load(kb_labeler)
+    labeler.load(private_labeler)
     bot = Bot(api=api, labeler=labeler, state_dispenser=state_dispenser)
 
     
