@@ -8,9 +8,9 @@ k_start = (
 k_main = (
     Keyboard(one_time=False, inline=False)
     .add(Text("Мой профиль👤"), color=KeyboardButtonColor.PRIMARY)
-    .row
+    .row()
     .add(Text("Ферма🌾"), color=KeyboardButtonColor.POSITIVE)
     .add(Text("Склад📦"),color=KeyboardButtonColor.SECONDARY)
-    .row
+    .row()
     .add(Text("Рынок🛒"), color=KeyboardButtonColor.NEGATIVE) 
     ).get_json()
