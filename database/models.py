@@ -6,6 +6,12 @@ class Base(DeclarativeBase):
     pass
 
 
+class Resources(Base):
+    __tablename__ = "resources"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    coins: Mapped[int]
+    eggs: Mapped[int]
+
 class Users(Base):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(primary_key=True)
