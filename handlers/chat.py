@@ -2,6 +2,8 @@ from vkbottle.bot import BotLabeler, Message, rules
 from vkbottle_types.objects import MessagesConversation
 from vkbottle_types.events import MessageTypingState
 
+from database.requests import get_all_users
+
 
 class ChatInfoRule(rules.ABCRule[Message]):
     async def check(self, message: Message) -> dict:
@@ -21,3 +23,8 @@ async def kick(message: Message, chat: MessagesConversation):
 @chat_labeler.message(text="где я")
 async def where_am_i(message: Message, chat: MessagesConversation):
     await message.reply(f"Вы в <<{chat.chat_settings.title}>>")
+
+@chat_labeler.message(command="users")
+async def users(message: Message, chat: MessagesConversation):
+    users = await get_all_users()
+    await message.answer(users)

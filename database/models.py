@@ -19,7 +19,7 @@ class Users(Base):
     last_name: Mapped[str]
     
     def __repr__(self):
-        return f"User(id={self.id!r}, name={self.name!r}, age={self.age!r})"
+        return f"User(id={self.id!r}, first_name={self.first_name!r}, last_name={self.last_name!r})"
     
     def __str__(self):
         return f"User(id={self.id!r}, name={self.name!r}, age={self.age!r})"
