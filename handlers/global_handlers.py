@@ -5,6 +5,8 @@ from config import labeler
 from vkbottle.bot import Message
 from vkbottle_types.objects import UsersUserFull
 
+from database.requests import get_all_users
+
 from database.models import Users
 
 error_handler = ErrorHandler(redirect_arguments=True)
@@ -23,3 +25,8 @@ async def addUsersToDb(message: Message):
     user_db = Users(first_name=user.first_name, last_name=user.last_name, id=user.id) 
     await user_db.save()     
     print(user_db.id, user_db.first_name, user_db.last_name, message.text)
+
+@labeler.message(command="users")
+async def users(message: Message):
+    users = await get_all_users()
+    await message.answer(users)
