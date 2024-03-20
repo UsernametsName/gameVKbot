@@ -1,11 +1,26 @@
+import asyncio
+import logging
 from vkbottle import Bot
 from config import api, state_dispenser, labeler
+from database.models import create_tables
 from handlers import chat_labeler, admin_labeler
 
 
-labeler.load(chat_labeler)
-labeler.load(admin_labeler)
+async def main() -> None:  
+        
+    labeler.load(chat_labeler)
+    labeler.load(admin_labeler)
+    bot = Bot(api=api, labeler=labeler, state_dispenser=state_dispenser)
 
-bot = Bot(api=api, labeler=labeler, state_dispenser=state_dispenser)
+    
+    await create_tables()
+    await bot.run_polling()
 
-bot.run_forever()
+
+if __name__ == '__main__':
+    logging.getLogger('vkbottle').setLevel(logging.DEBUG)
+    logging.getLogger('aiosqlite').setLevel(logging.DEBUG)
+    try:
+        asyncio.run(main()) #Точка входа
+    except (KeyboardInterrupt, SystemExit):
+        print("EXIT")        
