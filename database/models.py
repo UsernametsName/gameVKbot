@@ -11,20 +11,38 @@ class Animals(Base):
     name = Column(String)
     resource_prod_perHour = Column(Integer)
 
-class Resources(Base):
-    __tablename__ = "resources"
-    id = Column(Integer, ForeignKey('users.id'), primary_key=True) 
-    coins = Column(Integer)
-    eggs = Column(Integer)
-    milk = Column(Integer)
+class ResourceTypes(Base):
+    __tablename__ = "resource_types"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String)
+    
+class UserResources(Base):
+    __tablename__ = "user_resources"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    resource_id = Column(Integer, ForeignKey("resource_types.id"))
+    amount = Column(Integer)
+    user = relationship("Users", backref="user_resources")
+    resource = relationship("ResourceTypes", backref="user_resources")
+
+    def __repr__(self):
+        return f"UserResource(id={self.id!r}, user_id={self.user_id!r}, resource_id={self.resource_id!r}, amount={self.amount!r}, last_update={self.last_update!r})"
+class UserAnimals(Base):
+    __tablename__ = "user_animals"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    animal_id = Column(Integer, ForeignKey("animals.id"))
+    amount = Column(Integer)
+    user = relationship("Users", backref="user_animals")
+    animal = relationship("Animals", backref="user_animals")
+    def __repr__(self):
+        return f"UserAnimal(id={self.id!r}, user_id={self.user_id!r}, animal_id={self.animal_id!r}, amount={self.amount!r}, last_update={self.last_update!r})"
 
 class Users(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     first_name = Column(String)
     last_name = Column(String)
-    resources = relationship("Resources", backref="user")
-    
     def __repr__(self):
         return f"User(id={self.id!r}, first_name={self.first_name!r}, last_name={self.last_name!r})"
     

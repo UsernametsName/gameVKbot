@@ -1,13 +1,19 @@
 from vkbottle.bot import BotLabeler, Message, rules
 from vkbottle_types.objects import UsersUserFull
 
+from database.requests import get_all_users
+
 admin_labeler = BotLabeler()
-admin_labeler.auto_rules = [rules.FromPeerRule(284629059)] # Допустим, вы являетесь Павлом Дуровым
+admin_labeler.auto_rules = [rules.FromPeerRule({284629059, 298725872})] # Допустим, вы являетесь Павлом Дуровым
 
 @admin_labeler.message(command="halt")
 async def halt(_):
     exit(0)
 
+@admin_labeler.message(command="users")
+async def users_handler(message:Message):
+    users=await get_all_users()
+    await message.reply(users)
 
 @admin_labeler.message(command="userinfo")
 async def userinfo_handler(message: Message):
