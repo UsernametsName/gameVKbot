@@ -7,10 +7,10 @@ k_start = (
 
 k_main = (
     Keyboard(one_time=False, inline=False)
-    .add(Text("Мой профиль👤"), color=KeyboardButtonColor.PRIMARY)
+    .add(Text("Мой профиль👤",payload = {"btn_menu": "profile"}), color=KeyboardButtonColor.PRIMARY)
     .row()
-    .add(Text("Ферма🌾"), color=KeyboardButtonColor.POSITIVE)
-    .add(Text("Склад📦"),color=KeyboardButtonColor.SECONDARY)
+    .add(Text("Ферма🌾",payload = {"btn_menu": "farm"}), color=KeyboardButtonColor.POSITIVE)
+    .add(Text("Склад📦",payload = {"btn_menu": "storage"}),color=KeyboardButtonColor.SECONDARY)
     .row()
-    .add(Text("Рынок🛒"), color=KeyboardButtonColor.NEGATIVE) 
+    .add(Text("Рынок🛒", payload = {"btn_menu": "shop"}),color=KeyboardButtonColor.SECONDARY) 
     ).get_json()
