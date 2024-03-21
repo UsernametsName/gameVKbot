@@ -25,3 +25,18 @@ async def buy_chicken(userid:int):
         userAnimal =  UserAnimals(user_id=userid, animal_id=1, amount=1)
         session.add(userAnimal)
         await session.commit()
+
+
+
+#FIXME 
+async def get_user_animals(user_id:int):
+    async with async_session as session:
+         stmt = (
+        select(UserAnimals.user_id, ResourceTypes.name, func.sum(UserAnimals.amount).label('total_resources'))
+        .where(UserAnimals.user_id == user_id)
+        .join(ResourceTypes, UserAnimals.animal_id == ResourceTypes.id)
+        .group_by(UserAnimals.user_id, ResourceTypes.name)
+    )
+    result = session.execute(stmt)
+    resources = {row.name: row.total_resources for row in result}
+    return resources

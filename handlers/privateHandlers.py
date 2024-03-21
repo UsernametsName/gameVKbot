@@ -3,8 +3,8 @@ from vkbottle.bot import BotLabeler, rules, Message
 from vkbottle_types.objects import UsersUserFull
 from vkbottle.bot import rules
 
-from database.requests import get_resources, buy_chicken
-from keyboards import k_main, k_Market
+from database.requests import get_resources, buy_chicken, get_user_animals
+from keyboards import k_main, k_Market, k_Farm
 
 
 private_labeler = BotLabeler()
@@ -72,3 +72,25 @@ async def chickenBuy_handler(message: Message):
         await message.answer("Успешная покупка")
     else:
         await message.answer("Недостаточно денег")
+
+@private_labeler.private_message(rules.PayloadRule({"btn_menu": "farm"}))
+async def farm_handler(message: Message):
+    await message.answer("На твоей ферме живут🐷:\n"
+                            f"🐔 Курицы: {2} шт.\n"
+                            f"🐄 Коровы: {1} шт.\n"
+                            " \n"
+                            "⌛ Пока тебя не было:\n"
+                            f"Курицы слесли {0} 🥚!\n"
+                            f"Коровы выработали {0} 🥛!", keyboard=k_Farm)
+    
+
+@private_labeler.private_message(payload = {"btn_farm":"exit"})
+async def exit_farm(message: Message):
+    await message.answer("Куда теперь?📋", keyboard=k_main)
+
+@private_labeler.private_message(payload = {"btn_farm":"collect_all"})
+async def collect_all(message: Message):
+    await message.answer("⭐Ты собрал:\n"
+                         f"{0} Яиц 🥚\n"
+                         f"{0} Молока🥛", keyboard=k_main)
+    await message.answer("Куда теперь?📋", keyboard=k_main)
