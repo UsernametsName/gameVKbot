@@ -103,7 +103,6 @@ async def sell_resources(user_id:int) ->int:
         await session.commit()
         return total
   
-#FIXME 
 async def get_animals(userid:int):
     async with async_session as session:
         stmt = (select(UserAnimals.user_id, Animals.name, func.sum(UserAnimals.amount).label('total_animals'))
