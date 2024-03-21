@@ -1,4 +1,4 @@
-from vkbottle import Keyboard, KeyboardButtonColor, Text
+from vkbottle import Keyboard, KeyboardButtonColor, Text, Callback
 
 k_start = (
     Keyboard(one_time=True, inline=True)
@@ -31,13 +31,14 @@ k_Storage = (
     Keyboard(one_time=False, inline=True)
     .add(Text("Назад ↩️", payload={"btn_storage":"exit"}), color=KeyboardButtonColor.SECONDARY)
 )
+
 k_Market = (
     Keyboard(one_time=False, inline=True)
-    .add(Text("Купить курицу\n🐤300", payload={"btn_market":"buy_chicken"}), color=KeyboardButtonColor.POSITIVE)
-    .add(Text("Купить корову\n🐄1000", payload={"btn_market":"buy_cow"}), color=KeyboardButtonColor.POSITIVE)
+    .add(Callback("Купить курицу\n🐤200", payload={"btn_market":"buy_chicken", "animal_id":2}), color=KeyboardButtonColor.POSITIVE)
+    .add(Callback("Купить корову\n🐄1000", payload={"btn_market":"buy_cow", "animal_id":1}), color=KeyboardButtonColor.POSITIVE)
     .row()
-    .add(Text("Продать всё 💰", payload={"btn_market":"sell_all"}), color=KeyboardButtonColor.PRIMARY)
+    .add(Callback("Продать все ресурсы 💰", payload={"btn_market":"sell_all"}), color=KeyboardButtonColor.PRIMARY)
     .row()
-    .add(Text("Назад ↩️", payload={"btn_market":"exit"}), color=KeyboardButtonColor.SECONDARY)
+    .add(Callback("Назад ↩️", payload={"btn_market":"exit"}), color=KeyboardButtonColor.SECONDARY)
 
 )

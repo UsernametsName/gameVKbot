@@ -16,6 +16,7 @@ class ResourceTypes(Base):
     __tablename__ = "resource_types"
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
+    price = Column(Integer)
     
 class UserResources(Base):
     __tablename__ = "user_resources"
