@@ -33,8 +33,8 @@ k_Storage = (
 )
 k_Market = (
     Keyboard(one_time=False, inline=True)
-    .add(Text("Купить курицу 🐤", payload={"btn_market":"buy_chicken"}), color=KeyboardButtonColor.POSITIVE)
-    .add(Text("Купить корову 🐄", payload={"btn_market":"buy_cow"}), color=KeyboardButtonColor.POSITIVE)
+    .add(Text("Купить курицу\n🐤300", payload={"btn_market":"buy_chicken"}), color=KeyboardButtonColor.POSITIVE)
+    .add(Text("Купить корову\n🐄1000", payload={"btn_market":"buy_cow"}), color=KeyboardButtonColor.POSITIVE)
     .row()
     .add(Text("Продать всё 💰", payload={"btn_market":"sell_all"}), color=KeyboardButtonColor.PRIMARY)
     .row()

@@ -9,6 +9,7 @@ class Animals(Base):
     __tablename__ = "animals"
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
+    price = Column(Integer)
     resource_prod_perHour = Column(Integer)
 
 class ResourceTypes(Base):
