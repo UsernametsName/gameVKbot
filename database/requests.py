@@ -1,6 +1,6 @@
 from sqlalchemy import select, func
 from config import async_session
-from database.models import ResourceTypes, UserResources, Users
+from database.models import UserResources, Users, UserAnimals
 
 async def get_all_users():
     async with async_session as session:
@@ -9,10 +9,14 @@ async def get_all_users():
 
 async def get_resources(userid:int):
     async with async_session as session:
-        stmt = (select(UserResources.user_id, ResourceTypes.name, func.sum(UserResources.amount).label('total_resources'))
+        stmt = (select(UserResources.user_id, UserResources.resource_id, func.sum(UserResources.amount).label('total_resources'))
                 .where(UserResources.user_id==userid)
-                .join(ResourceTypes, UserResources.resource_id == ResourceTypes.id)
-                .group_by(UserResources.user_id, ResourceTypes.name))
+                .group_by(UserResources.user_id, UserResources.resource_id))
         result = await session.execute(stmt)
-        resources = {row.name: row.total_resources for row in result}
-        return resources
+        return result.fetchall()
+
+async def get_user_animals(user_id: int):
+    async with async_session() as session:
+        stmt = select(UserAnimals).filter(UserAnimals.user_id == user_id)
+        result = await session.execute(stmt)
+        return result.scalars().all()
